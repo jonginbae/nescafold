@@ -5,19 +5,23 @@ class SessionController < ApplicationController
 
   def create
     user = User.find_by :email => params[:email]
-    if user.admin
-      redirect_to adminLogin_path
+    if user == nil
+      redirect_to login_path
     else
-      if user.present? && user.authenticate(params[:password])
-
-        flash[:success] = "login_success"
-        session[:user_id] = user.id
-        @current_user = user
-
-        redirect_to main_path
+      if user.admin
+        redirect_to adminLogin_path
       else
-        flash[:error] = "login_fail"
-        redirect_to login_path
+        if user.present? && user.authenticate(params[:password])
+
+          flash[:success] = "login_success"
+          session[:user_id] = user.id
+          @current_user = user
+
+          redirect_to main_path
+        else
+          flash[:error] = "login_fail"
+          redirect_to login_path
+        end
       end
     end
   end
@@ -27,20 +31,25 @@ class SessionController < ApplicationController
 
   def adminCreate
     user = User.find_by :email => params[:email]
-    if !user.admin
-      redirect_to login_path
+    if user == nil
+      redirect_to adminLogin_path
     else
-      if user.present? && user.authenticate(params[:password])
-
-        flash[:success] = "login_success"
-        session[:user_id] = user.id
-        @current_user = user
-        redirect_to adminmain_path
+      if !user.admin
+        redirect_to login_path
       else
-        flash[:error] = "login_fail"
-        redirect_to adminLogin_path
+        if user.present? && user.authenticate(params[:password])
+
+          flash[:success] = "login_success"
+          session[:user_id] = user.id
+          @current_user = user
+          redirect_to adminmain_path
+        else
+          flash[:error] = "login_fail"
+          redirect_to adminLogin_path
+        end
       end
     end
+
   end
 
   def destroy
