@@ -139,7 +139,7 @@ var myLatLng = {
 };
 
 var initMap = function() {
-  map = new google.maps.Map(document.getElementById('map'), {
+  map = new google.maps.Map(document.getElementById('singlemap'), {
     zoom: 14,
     center: myLatLng
   });
@@ -202,6 +202,8 @@ $(document).on("turbolinks:load", function() {
   initMap();
   var shopLatLng = $('#shoplatlng').text();
   var shopName = $('#shopName').text();
+  console.log(shopLatLng);
+  console.log(shopName);
   if (shopLatLng != 'null' && shopLatLng != 'null') {
     var shopLatAndLang = shopLatLng.split(",");
     var myShopSingleLatLng = {

@@ -33,13 +33,14 @@ var getListItem = function( name ){
 };
 
 var showLineItems = function ( data ){
-  $(".orderItem").html("");
+  $(".newItem").html("");
   var $body = $(".orderItem");
   var $total = $(".total");
   var totalValue = 0;
   $total.text("0");
   for (var i = 0; i < data.lineItems.length; i++) {
-    var $tr = $("<tr></tr>");
+    var $tr = $("<tr class></tr>");
+    $tr.addClass("newItem");
     var $nameTag = $("<td></td>");
     $nameTag.text(data.lineItems[i].product.name);
     var $priceTag = $("<td></td>");
