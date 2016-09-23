@@ -1,16 +1,15 @@
 <p id="notice"><%= notice %></p>
-
-
 <div id="jumbo-index-shop" class="jumbotron">
-  <div class="row">
+  <div class="row" id="jumbo-index-row">
     <div id="Shop-description" class="col-md-6 col-md-offset-2">
-      <h1><%= @shop.name %></h1>
+      <h1 id="shopName"><%= @shop.name %></h1>
       <h3><%= @shop.description %></h3>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4" id="mapContainer">
       <div id="map" class="col-md-4">
           <div id='shoplatlng' <%= @shop.latlng %> ></div>
-          <div id='map'></div>
+
+          <div id='singlemap'></div>
         </div>
       </div>
 

@@ -19,41 +19,44 @@ $(document).on("turbolinks:load", function() {
     shop_id = parseInt($(this).parent().find(".shop_id")[0].value);
     product_id = parseInt($(this).parent().find(".product_id")[0].value);
     product_name = $(this).parent().find("h3").text();
-    product_price = parseInt($(this).parent().find(".product_price")[0].value);   product_quantity = parseInt($(this).parent().find("select")[0].value);
-
+    product_price = parseInt($(this).parent().find(".product_price")[0].value);
+    product_quantity = parseInt($(this).parent().find("select")[0].value);
     if ( itemArr.length > 0){
 
       for ( var i = 0; i < itemArr.length; i ++ ){
         // has same product
 
         if(itemArr[i].product_name === product_name){
+
           itemArr[i].product_quantity += product_quantity;
           totalValue += (product_price * product_quantity);
-          var $targetTag = $("."+product_name.split(' ').join(''));
+          var $targetTag = $("." + product_name.split(' ').join(''));
           $targetTag.text(itemArr[i].product_quantity);
-          $total.text("Price: $"+totalValue);
+          $total.text("Price: $" + totalValue);
 
-          return ;
+          return;
         }
         console.log("end if ");
       }
       console.log("end for");
       itemArr.push({
-        shop_id: shop_id ,
+        shop_id: shop_id,
         product_id: product_id,
         product_name: product_name,
         product_price: product_price,
         product_quantity: product_quantity
       });
+
       $(this).find("span").removeClass("glyphicon glyphicon-star-empty").addClass("glyphicon glyphicon-star");
       createTag(product_name , product_quantity);
       addClassId( $(this).find("span") , product_name);
+
       totalValue += (product_price * product_quantity);
-      $total.text("Price: $"+totalValue);
+      $total.text("Price: $" + totalValue);
       console.log("end if ");
-    }else{
+    } else {
       itemArr.push({
-        shop_id: shop_id ,
+        shop_id: shop_id,
         product_id: product_id,
         product_name: product_name,
         product_price: product_price,
@@ -63,8 +66,9 @@ $(document).on("turbolinks:load", function() {
       $(this).find("span").removeClass("glyphicon glyphicon-star-empty").addClass("glyphicon glyphicon-star");
       addClassId( $(this).find("span") , product_name);
       createTag(product_name , product_quantity);
+
       totalValue += (product_price * product_quantity);
-      $total.text("Price: $"+totalValue);
+      $total.text("Price: $" + totalValue);
     }
   });
   // cancel shopping item
@@ -72,43 +76,43 @@ $(document).on("turbolinks:load", function() {
   var $temTag = $(document).find("#id"+$(this).parent().find("p").text().split(' ').join(''));
   $temTag.removeClass("glyphicon glyphicon-star").addClass("glyphicon glyphicon-star-empty");
     var targetName = $(this).parent().find("p").text();
-    for ( var i = 0 ; i < itemArr.length; i++){
-      if (itemArr[i].product_name === targetName ){
-        var minusValue =( itemArr[i].product_price * itemArr[i].product_quantity);
+    for (var i = 0; i < itemArr.length; i++) {
+      if (itemArr[i].product_name === targetName) {
+        var minusValue = (itemArr[i].product_price * itemArr[i].product_quantity);
         totalValue -= minusValue;
-        itemArr.splice( i , 1);
+        itemArr.splice(i, 1);
         this.parentElement.remove();
-        $total.text("Price: $"+totalValue);
+        $total.text("Price: $" + totalValue);
 
-        return ;
+        return;
       }
     }
 
   });
 
   // order shopping list
-  $("#order_btn").on("click" , function(){
-        $.ajax({
-          url: "/orders",
-          method: "POST",
-          data: {
-            orderList: itemArr
-          }
-        }).done(function (data) {
-          console.log( data );
-        });
+  $("#order_btn").on("click", function() {
+    $.ajax({
+      url: "/orders",
+      method: "POST",
+      data: {
+        orderList: itemArr
+      }
+    }).done(function(data) {
+      console.log(data);
+    });
   });
 });
 
-var createTag = function ( name , quantity ){
+var createTag = function(name, quantity) {
   $container = $(".order_div");
   $newli = $("<li></li>").addClass("list-group-item");
   $badgeSpanTag = $("<span></span>").addClass("badge");
-  $quantitySpan = $("<span></span>").attr("id" , "quantity");
+  $quantitySpan = $("<span></span>").attr("id", "quantity");
   $quantitySpan = $("<span></span>").addClass(name.split(' ').join(''));
-  $quantitySpan.text( quantity );//set quantity value
+  $quantitySpan.text(quantity); //set quantity value
   $trashSpanTag = $("<span></span>").addClass("glyphicon glyphicon-trash");
-  $trashSpanTag.attr("aria-hidden" , "true");
+  $trashSpanTag.attr("aria-hidden", "true");
   $product_namePTag = $("<p></p>");
   $product_namePTag.text(name);
 

@@ -85,7 +85,7 @@ class OrdersController < ApplicationController
           @lineitem = LineItem.create product_id: params["orderList"][i.to_s]["product_id"].to_i, order_id: @order.id.to_i, quantity: params["orderList"][i.to_s]["product_quantity"].to_i, price: params["orderList"][i.to_s]["product_price"].to_i
           i += 1
         end
-        # UserMailer.order_summary(@user).deliver_now
+        UserMailer.order_summary(@user).deliver_now
         redirect_to orders_path
         # t.integer  "product_id"
         # t.integer  "order_id"
