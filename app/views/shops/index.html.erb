@@ -17,7 +17,7 @@
 <div class="container"></div>
 <div class="row">
     <% @shops.each do |shop| %>
-    <div class="col-md-3 col-sm-3">
+    <div id="main_div" class="col-md-3 col-sm-3">
         <div class="thumbnail">
             <h3><%= link_to shop.name , shop_path(shop.id) , method: :get %></h3>
             <hr>

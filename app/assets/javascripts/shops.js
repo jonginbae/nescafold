@@ -21,12 +21,13 @@ $(document).on("turbolinks:load", function() {
     product_name = $(this).parent().find("h3").text();
     product_price = parseInt($(this).parent().find(".product_price")[0].value);
     product_quantity = parseInt($(this).parent().find("select")[0].value);
+    if ( itemArr.length > 0){
 
-    if (itemArr.length > 0) {
-      for (var i = 0; i < itemArr.length; i++) {
+      for ( var i = 0; i < itemArr.length; i ++ ){
         // has same product
 
-        if (itemArr[i].product_name === product_name) {
+        if(itemArr[i].product_name === product_name){
+
           itemArr[i].product_quantity += product_quantity;
           totalValue += (product_price * product_quantity);
           var $targetTag = $("." + product_name.split(' ').join(''));
@@ -45,7 +46,11 @@ $(document).on("turbolinks:load", function() {
         product_price: product_price,
         product_quantity: product_quantity
       });
-      createTag(product_name, product_quantity);
+
+      $(this).find("span").removeClass("glyphicon glyphicon-star-empty").addClass("glyphicon glyphicon-star");
+      createTag(product_name , product_quantity);
+      addClassId( $(this).find("span") , product_name);
+
       totalValue += (product_price * product_quantity);
       $total.text("Price: $" + totalValue);
       console.log("end if ");
@@ -57,14 +62,19 @@ $(document).on("turbolinks:load", function() {
         product_price: product_price,
         product_quantity: product_quantity
       });
-      createTag(product_name, product_quantity);
+
+      $(this).find("span").removeClass("glyphicon glyphicon-star-empty").addClass("glyphicon glyphicon-star");
+      addClassId( $(this).find("span") , product_name);
+      createTag(product_name , product_quantity);
+
       totalValue += (product_price * product_quantity);
       $total.text("Price: $" + totalValue);
     }
   });
   // cancel shopping item
   $("body").on("click", ".badge", function(e) {
-
+  var $temTag = $(document).find("#id"+$(this).parent().find("p").text().split(' ').join(''));
+  $temTag.removeClass("glyphicon glyphicon-star").addClass("glyphicon glyphicon-star-empty");
     var targetName = $(this).parent().find("p").text();
     for (var i = 0; i < itemArr.length; i++) {
       if (itemArr[i].product_name === targetName) {
@@ -96,7 +106,6 @@ $(document).on("turbolinks:load", function() {
 
 var createTag = function(name, quantity) {
   $container = $(".order_div");
-
   $newli = $("<li></li>").addClass("list-group-item");
   $badgeSpanTag = $("<span></span>").addClass("badge");
   $quantitySpan = $("<span></span>").attr("id", "quantity");
@@ -114,14 +123,10 @@ var createTag = function(name, quantity) {
   $newli.append($product_namePTag);
   $container.append($newli);
 
-  // $("<ul class="list-group">
-  //   <li class="list-group-item">
-  //   <span class="badge">14
-  //     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-  //   </span>
-  //     prouct_name
-  //   </li>");
+};
 
+var addClassId = function ($tag , name){
+  $tag.attr("id" , "id"+name.split(' ').join(''));
 };
 
 
@@ -186,13 +191,13 @@ var handleSearchData = function(data) {
       lat: lat,
       lng: lng
     };
-    //addMarker(mySingleLatLng,map,description);
+    // addMarker(mySingleLatLng,map,description);
   }
 
 };
 
 
-$(document).ready(function() {
+$(document).on("turbolinks:load", function() {
   //searchFourSquareApi("food shops");
   initMap();
   var shopLatLng = $('#shoplatlng').text();

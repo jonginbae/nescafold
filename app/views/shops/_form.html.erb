@@ -1,37 +1,44 @@
-<%= form_for(@shop, :html => {:multipart => true}) do |f| %>
-  <% if @shop.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@shop.errors.count, "error") %> prohibited this shop from being saved:</h2>
+<div class="row">
+  <div class="col-md-1">
+  </div>
+  <div class="col-md-9">
+    <%= form_for(@shop, :html => {:multipart => true}) do |f| %>
+      <% if @shop.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@shop.errors.count, "error") %> prohibited this shop from being saved:</h2>
 
-      <ul>
-      <% @shop.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+          <ul>
+          <% @shop.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
+      <div class="field">
+        <%= f.label :name %><br>
+        <%= f.text_field :name %>
+      </div>
 
-  <div class="field">
-    <%= f.label :image %><br>
-    <%= f.cl_image_upload :image %>
-  </div>
+      <div class="field">
+        <%= f.label :image %><br>
+        <%= f.cl_image_upload :image %>
+      </div>
 
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
+      <div class="field">
+        <%= f.label :description %><br>
+        <%= f.text_area :description %>
+      </div>
 
-  <div class="field">
-    <%= f.label :latlng%><br>
-    <%= f.text_field :latlng ,:value => "-33.8660109, 151.2054294"%>
-  </div>
+      <div class="field">
+        <%= f.label :latlng%><br>
+        <%= f.text_field :latlng ,:value => "-33.8660109, 151.2054294"%>
+      </div>
 
-  <div class="actions">
-    <%= f.submit %>
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+    <% end %>
+
   </div>
-<% end %>
+</div>

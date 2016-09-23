@@ -40,4 +40,6 @@ Rails.application.routes.draw do
   get '/lineItemList' => 'line_item#lineItemList'
   get '/test' => 'users#test' , :as => 'test'
 
+  get '/stastics' => 'orders#stastics' , :as => 'stastics'
+
 end

@@ -22,6 +22,40 @@ class OrdersController < ApplicationController
     end
   end
 
+
+  def stastics
+    # Shop.find_by_id(11).products.find_by_id(18).line_items.group(:order_id).count
+    @obj = {
+              :id => [],
+              :name => [],
+              :count => []
+    }
+    count = 0
+    @shops = Shop.all
+
+    @shops.each do |s|
+      @products = s.products.all
+      @products.each do |p|
+        @line_items = p.line_items.all
+        if @line_items.group(:order_id).count.values[0].nil?
+        else
+          count += @line_items.group(:order_id).count.values[0]
+        end
+      end
+      @obj[:id].push(s.id)
+      @obj[:name].push(s.name)
+      @obj[:count].push(count)
+    end
+    respond_to do |format|
+     format.html
+     format.json {
+       obj = {
+         :obj => @obj
+       }
+       render :json => obj
+     }
+   end
+  end
   # GET /orders/1
   # GET /orders/1.json
   def show
@@ -51,7 +85,7 @@ class OrdersController < ApplicationController
           @lineitem = LineItem.create product_id: params["orderList"][i.to_s]["product_id"].to_i, order_id: @order.id.to_i, quantity: params["orderList"][i.to_s]["product_quantity"].to_i, price: params["orderList"][i.to_s]["product_price"].to_i
           i += 1
         end
-        # UserMailer.order_summary(@user).deliver_now
+        UserMailer.order_summary(@user).deliver_now
         redirect_to orders_path
         # t.integer  "product_id"
         # t.integer  "order_id"
