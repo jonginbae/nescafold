@@ -60,6 +60,8 @@
 										<li>
 											<a href="/adminmain">HOME</a>
 										<li class="divider"></li>
+											<a href="/stastics">Stastics</a>
+										<li class="divider"></li>
 										<a href="/shops/new">CreateShop</a>
 										<li class="divider"></li>
 										<a href="/products/new">CreateProduct</a>
@@ -68,12 +70,12 @@
 									<%= link_to("ADMIN LOGOUT : #{@current_user.name}" , adminLogout_path() )%>
 								<% else %>
 									<li>
-										<a href="/shops">HOME</a>
-									<li class="divider"></li>
-									<a href="/orders">Orders History</a>
+									<a href="/shops">HOME</a>
 									<li class="divider"></li>
 									<a href="/users/<%= @current_user.id %>">My Account
 									</a>
+									<li class="divider"></li>
+									<a href="/orders">Orders History</a>
 									<li class="divider"></li>
 								</li>
 								<%= link_to("LOGOUT : #{@current_user.name}" , logout_path() )%>

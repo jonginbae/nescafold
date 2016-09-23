@@ -22,6 +22,40 @@ class OrdersController < ApplicationController
     end
   end
 
+
+  def stastics
+    # Shop.find_by_id(11).products.find_by_id(18).line_items.group(:order_id).count
+    @obj = {
+              :id => [],
+              :name => [],
+              :count => []
+    }
+    count = 0
+    @shops = Shop.all
+
+    @shops.each do |s|
+      @products = s.products.all
+      @products.each do |p|
+        @line_items = p.line_items.all
+        if @line_items.group(:order_id).count.values[0].nil?
+        else
+          count += @line_items.group(:order_id).count.values[0]
+        end
+      end
+      @obj[:id].push(s.id)
+      @obj[:name].push(s.name)
+      @obj[:count].push(count)
+    end
+    respond_to do |format|
+     format.html
+     format.json {
+       obj = {
+         :obj => @obj
+       }
+       render :json => obj
+     }
+   end
+  end
   # GET /orders/1
   # GET /orders/1.json
   def show

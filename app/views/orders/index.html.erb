@@ -1,41 +1,47 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Orders</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Status</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @orders.each do |order| %>
-      <tr>
-        <td class="order_name"><%= order.name %></td>
-        <td><%= order.status %></td>
-        <!-- <td><%= link_to 'Show', order %></td>
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
-      </tr>
-    <% end %>
-  </tbody>
+<table id="table" class="table table-striped">
+  <tr id="table-header">
+    <th>Name</th>
+    <th>Price</th>
+    <th>Quantity</th>
+    <th>Status</th>
+  </tr>
+  <tr>
+    <th>total :</th>
+    <th class="total"></th>
+    <th></th>
+    <th></th>
+  </tr>
 </table>
-<br>
-<table>
-  <thead>
-    <tr>
-      <th> Product Name </th>
-      <th> price </th>
-      <th> Quantity </th>
-      <th> Status </th>
-    </tr>
-  </thead>
-  <tbody class="orderItem">
-  </tbody>
-  <br>
-  <p>total : </p>
-  <p class="total"></p>
-
-<!-- <%= link_to 'New Order', new_order_path %> -->
+<hr>
+  <div class="row">
+    <div class="col-md-5">
+      <h1>Admin Main Page</h1>
+      <table class="table table-striped">
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th colspan="3"></th>
+        </tr>
+        <% @orders.each do |order| %>
+          <tr>
+            <td class="order_name"><%= order.name %></td>
+            <td class="status"><%= order.status %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-3">
+      <div class="cont">
+      <progress id="progress-bar" min="1" max="100" value="0"></progress>
+      <span id="progress" class="first border-change"></span>
+      <span id="progress" class="second"></span>
+      <span id="progress" class="third"></span>
+      <span id="progress" class="fourth"></span>
+      <p class="percent">0% Complete</p>
+      </div>
+    </div>
+  </div>

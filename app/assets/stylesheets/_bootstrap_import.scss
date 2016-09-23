@@ -59,7 +59,7 @@
     background-position: center;
     height: 500px;
     font-family: 'Indie Flower', cursive;
-    color: white; 
+    color: white;
 
 
 }
@@ -69,6 +69,9 @@
     color: white;
     z-index: 99;
 }
-#cabeca{
+#myChart{
+  height: 900px !important;
+  width: 900px !important;
+  padding-left: 50px;
 
 }
